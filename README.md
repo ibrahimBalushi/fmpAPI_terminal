@@ -8,7 +8,7 @@ Designed to produce tables and charts summarizing financial metrics of companies
 
 # Initilization
 For the package to work correctly, some directories and text files need to be initialized first. In addition an apikey from 
-FinancialModelingPrep needs to be issued. If you are using this package for the first time, please run initialization script initializeFMPapi.py first 
+FinancialModelingPrep needs to be issued. If you are using this package for the first time, please run initialization script initialize.py first 
 as it will walk you through the apikey generation and directories/files creation. The initilization program will prompt you for the apikey and write it to a textfile for the rest of the package to refer to. 
 
 # Examples
