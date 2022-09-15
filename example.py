@@ -47,4 +47,4 @@ os.system('python3 main.py')
 example6 ="\nExample 6) You can look up the various commands in this package by keying:"+gap+"list commands\n\nOnce done, key in 'exit' to conclude.\n"
 print(example6)
 os.system('python3 main.py')
-print("\nHope this introduction was helpful!\n\nIbrahim Al Balushi")
+print("\nHope this introduction was helpful! Run main.py in terminal to start fmpAPI terminal. \n\nIbrahim Al Balushi")
