@@ -11,5 +11,7 @@ For the package to work correctly, some directories and text files need to be in
 FinancialModelingPrep needs to be issued. If you are using this package for the first time, please run initialization script initialize.py first 
 as it will walk you through the apikey generation and directories/files creation. The initilization program will prompt you for the apikey and write it to a textfile for the rest of the package to refer to. 
 
+After initialization, run main.py in terminal to start fmpAPI terminal.
+
 # Examples
 To demonstrate some of its key functionalities, please run the example.py script which walks you through six examples.
