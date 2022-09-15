@@ -1,6 +1,6 @@
 # FinancialModelingPrep api terminal / fmpAPI_terminal
 Command-line interface to access and process financial data from www.financialmodelingprep.com. 
-This program produce charts and tables from FinancialModelingPrep
+This program produce charts and tables.
 
 # About this package
 It is a command-line prompter in terminal to retrieve and visualize various financial data from www.financialmodelingprep.com
