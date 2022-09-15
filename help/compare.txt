@@ -1,0 +1,38 @@
+# RAW values
+ 'r':   'revenue',
+ 'ni':  'netIncome', 
+ 'oi':  'operatingIncome', 
+ 'fcf': 'freeCashFlow', 
+ 'e':   'totalStockholdersEquity',
+ 
+# PER SHARE values 
+ 'rps':   'revenuePerSh',
+ 'eps':   'earningsPerSh', 
+ 'ops':   'operatingIncomePerSh', 
+ 'fcfps': 'freeCashPerSh', 
+ 'eqps':  'equityPerSh',
+ 'dc':    'debtCoverage',
+ 
+# MARGINS and misc
+ 'gpm':   'grossProfitMargin',
+ 'opm':   'operatingProfitMargin',
+ 'nim':   'netIncomeMargin',
+ 'it':    'inventoryTurnover',
+ 'capex': 'capEx',
+ 'roic':  'roic', 
+ 
+# VALUATION 
+ 'pe':   'priceToEarnings',
+ 'poi':  'priceToOperatingIncome'
+ 'pfcf': 'priceToFreeCashFlow', 
+ 'pb':   'priceToBook',  
+ 'fcfy': 'freeCashFlowYield', 
+
+# GROWTH and performance
+
+ 'eg': 'totalStockholdersEquityGrowth', 
+ 'epsg': 'earningsPerShareGrowth',
+ 'rg': 'revenueGrowth', 
+ 'fcfg': 'freeCashFlowGrowth', 
+ 'pg': 'stockPriceGrowth', 
+ 'srr': 'shareRepurchaseRate']
