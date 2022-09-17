@@ -13,6 +13,7 @@ from main import prompt
 #         prompt(eval(cmds[i][:-1]), run_=True)    
 
 gap="\n\n      "
+print('Introductory example:\n')
 
 # # print aapl statements table 2021
 example1 = "Example 1) display the 2021 financial statements for Apple in the terminal as provided by FinancialModelingPrep, key in fmpAPI terminal:"+gap+"print aapl statements table 2021'\n\nOnce the code terminates, a new prompter will appear. Key in 'exit' to go to the next example.\n"
