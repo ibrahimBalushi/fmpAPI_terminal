@@ -6,12 +6,21 @@ This program produce charts and tables.
 It is a command-line prompter in terminal to retrieve and visualize various financial data from www.financialmodelingprep.com
 Designed to produce tables and charts summarizing financial metrics of companies trades on various stock exhcnages. 
 
-# Initilization
-For the package to work correctly, some directories and text files need to be initialized first. In addition an apikey from 
-FinancialModelingPrep needs to be issued. If you are using this package for the first time, please run initialization script initialize.py first 
-as it will walk you through the apikey generation and directories/files creation. The initilization program will prompt you for the apikey and write it to a textfile for the rest of the package to refer to. 
+#Pre-requirsites
+An apikey from FinancialModelingPrep needs is needed, and should be stored in the environment variable `FMP_API_KEY`.
+`
+To permanently store your api key in your .bashrc file run:
 
-After initialization, run main.py in terminal to start fmpAPI terminal.
+echo 'export FMP_API_KEY=12345678' >> ~.bashrc
+
+# Installation
+Download this git repo, open the base folder and run
+
+pip install . 
+
+or for an in-place editable installation run
+
+pip install . -e
 
 # Examples
 To demonstrate some of its key functionalities, please run the example.py script which walks you through six examples.

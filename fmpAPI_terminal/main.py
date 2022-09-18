@@ -1,4 +1,7 @@
-from processor import *
+from .processor import *
+
+
+
 
 # TERMINAL API functions -------------------------------------------------------------------------------------------------------------------
 def getTrendTable(ticker, trend_name, years, period, pretty=True):
@@ -149,4 +152,4 @@ if __name__ == '__main__':
             var = input('fmpAPI terminal$ ').split()
             run_ = prompt(var, run_)
                 
-        except Exception as e: print(e)
+        except Exception as e: raise(e)
