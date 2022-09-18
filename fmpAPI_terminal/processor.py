@@ -39,9 +39,16 @@ def searchGrowth(csv_name):
 
 ################################################################################################################################
 # VALUATION MODEL ###############################################################################################################################
+def chart_path(path_, filename=None):
+	if filename is None:
+		return os.path.join(path_prefix, 'charts',path_)
+	else:
+		return os.path.join(path_prefix, 'charts',path_, filename)
+		
+
 def writeMOS(path_):
-    ticker_ls = getTickerList('charts/'+path_)
-    with open('charts/'+path_+'/MOS.txt','w') as file:
+    ticker_ls = getTickerList(chart_path(path_))
+    with open(os.path.join(path_prefix,'charts',path_+'/MOS.txt'),'w') as file:
         for tkr in ticker_ls:
             MOSdict = computeMOS(tkr)
             file.write(MOSdict.to_string()+'\n---------------------------------------------------\n')
@@ -65,7 +72,7 @@ def computeMOS(ticker, onscreen=False):
     histPE = round(trends_dict['valuation'].loc['P/E',:].values.mean(),0)
 
     # read file for analyst estimates:
-    file = pd.read_csv('parameters/valuation', index_col=0)
+    file = pd.read_csv(os.path.join(path_prefix,'parameters','valuation'), index_col=0)
     # and analyst(yahoo) growth
     analyst5YGrowth = file.loc[ticker][0]
 
@@ -162,7 +169,7 @@ def makeGrowthPlot(ticker, metric, path_='screen' ,years=10):
     ax2.xaxis.tick_top()
     
     if path_ != 'screen':
-        plt.savefig('charts/'+path_+'/'+ticker+file_name[metric], dpi=200)
+        plt.savefig(chart_path(path_, ticker+file_name[metric]), dpi=200)
         plt.close()
     else:
         plt.show()
@@ -195,7 +202,7 @@ def makeTrendPlot(ticker, years, trend_name, period='Y', path_='screen'):
         ax2.legend(loc='upper right')
         ax2.set_ylabel('$ in Millions')
         if path_ != 'screen':
-            plt.savefig('charts/'+path_+'/'+ticker+'_trend_1_income.png', dpi=200)
+            plt.savefig(chart_path(path_,ticker+'_trend_1_income.png'), dpi=200)
             plt.close()
         else:
             plt.show()
@@ -215,10 +222,11 @@ def makeTrendPlot(ticker, years, trend_name, period='Y', path_='screen'):
         ax2.legend(loc='upper right')
         ax2.set_ylabel('Shares Outstanding')
         if path_ != 'screen':
-            plt.savefig('charts/'+path_+'/'+ticker+'_trend_2_stockequity.png', dpi=200)
+            plt.savefig(chart_path(path_,ticker+'_trend_2_stockequity.png'), dpi=200)
             plt.close()
         else:
             plt.show()
+
 
     # plot liabilityTrend
     def plotLiability(ticker, path_='screen'):
@@ -235,10 +243,10 @@ def makeTrendPlot(ticker, years, trend_name, period='Y', path_='screen'):
         ax2.legend(loc='upper right')
         ax2.set_ylabel('Time (years)')
         if path_ != 'screen':
-            plt.savefig('charts/'+path_+'/'+ticker+'_trend_3_liability.png', dpi=200)
+            plt.savefig(chart_path(path_,+ticker+'_trend_3_liability.png'), dpi=200)
             plt.close()
             if period == 'Q':
-                os.remove('charts/'+path_+'/'+ticker+'_trend_3_liability.png')
+                os.remove(chart_path(path_,ticker+'_trend_3_liability.png'))
         else:
             plt.show()
 
@@ -257,7 +265,7 @@ def makeTrendPlot(ticker, years, trend_name, period='Y', path_='screen'):
         ax2.legend(loc='upper right')
         ax2.set_ylabel('Turnover Multiple')
         if path_ != 'screen':
-            plt.savefig('charts/'+path_+'/'+ticker+'_trend_4_margins.png', dpi=200)
+            plt.savefig(chart_path(path_, ticker+'_trend_4_margins.png'), dpi=200)
             plt.close()
         else:
             plt.show()
@@ -279,7 +287,7 @@ def makeTrendPlot(ticker, years, trend_name, period='Y', path_='screen'):
         ax.set_title('Investment Activities ('+ticker+')')
         ax.legend()
         if path_ != 'screen':
-            plt.savefig('charts/'+path_+'/'+ticker+'_trend_5_investment.png', dpi=200)
+            plt.savefig(chart_path(path_, ticker+'_trend_5_investment.png'), dpi=200)
             plt.close()
         else:
             plt.show()
@@ -299,7 +307,7 @@ def makeTrendPlot(ticker, years, trend_name, period='Y', path_='screen'):
         ax2.set_ylabel('Yield')
         ax2.legend(loc='upper right')
         if path_ != 'screen':
-            plt.savefig('charts/'+path_+'/'+ticker+'_trend_6_valuation.png', dpi=200)
+            plt.savefig(chart_path(path_, ticker+'_trend_6_valuation.png'), dpi=200)
             plt.close()
         else:
             plt.show()

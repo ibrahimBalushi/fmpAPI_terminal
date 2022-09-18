@@ -28,7 +28,7 @@ def getTrendTable(ticker, trend_name, years, period, pretty=True):
     return trends
 
 def maketrend(path_, metric, years ,period):
-    ticker_list = getTickerList('charts/'+str(path_))
+    ticker_list = getTickerList(os.path.join(path_prefix,'charts', str(path_)))
     for tkr in ticker_list:
     # produce tables and plots
         print('processing',tkr)
