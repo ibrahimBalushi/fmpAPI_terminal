@@ -1,0 +1,5 @@
+
+*.egg-info/*
+*.pyc
+fmpAPI_terminal/SECfilings/*
+*.png

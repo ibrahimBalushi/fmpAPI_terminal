@@ -8,8 +8,15 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import webbrowser as wb
 
-with open("apikey.txt","r") as file:
-    apikey = file.readline()[:-1]
+import fmpAPI_terminal
+path_prefix = fmpAPI_terminal.__path__[0]
+
+apikey = os.getenv('FMP_API_KEY')
+
+if apikey is None:
+	print('No FMP_API_KEY environment variable detected. Cannot proceed.')
+	exit()
+
 
 statement_url = {'is': 'https://financialmodelingprep.com/api/v3/income-statement/',
     'bs': 'https://financialmodelingprep.com/api/v3/balance-sheet-statement/',
@@ -80,7 +87,7 @@ def getData(ticker, statement_type, period='Y'):
     linkprefix = {'Y':'year','Q':'quarter'}
     
     # check if /SECfillings/statement.txt exists: if True, retrive; else, online API and write to file
-    file_path = 'SECfilings/'+linkprefix[period]+'/'+ticker+'_'+statement_type+postfix[period]+'.txt' 
+    file_path = os.path.join(path_prefix,'SECfilings',linkprefix[period], ticker+'_'+statement_type+postfix[period]+'.txt' )
     if os.path.exists(file_path):
         with open(file_path, 'r') as file:
             content = file.read(); file.close()
@@ -101,8 +108,9 @@ def getData(ticker, statement_type, period='Y'):
 def getTTM(ticker):
     ticker = ticker.upper()
     # check if /SECfillings/statement.txt exists: if True, retrive; else, online API and write to file 
-    if os.path.exists('SECfilings/ttm/'+ticker+'_ttm.txt'):
-        with open('SECfilings/ttm/'+ticker+'_ttm.txt', 'r') as file:
+    file_path = os.path.join(path_prefix, 'SECfilings','ttm', ticker+'_ttm.txt' )
+    if os.path.exists(file_path):
+        with open(file_path, 'r') as file:
             content = file.read(); file.close()
             return json.loads(content)[0]
  
@@ -112,7 +120,7 @@ def getTTM(ticker):
         response = urlopen(url)
         data = json.loads(response.read().decode('utf-8'))
         if data:
-            with open('SECfilings/ttm/'+ticker+'_ttm.txt', 'w') as file:
+            with open(file_path, 'w') as file:
                 file.write(json.dumps(data)); file.close()
         else:
             print('Invalid '+ticker+'\n')
@@ -120,7 +128,7 @@ def getTTM(ticker):
 
 def getHistoricPrice(ticker, format='dict'):
     ticker = ticker.upper()
-    file_path = 'historic/'+ticker+'.txt'
+    file_path = os.path.join(path_prefix, 'historic', ticker+'.txt')
     if os.path.exists(file_path):
         with open(file_path, 'r') as file:
             content = file.read(); file.close()
@@ -143,7 +151,8 @@ def getHistoricPrice(ticker, format='dict'):
 ################################################################################################################################
 def downloadStatements(csv_name, period):
     # load csv to get tickers
-    df = pd.read_csv('marketIndex/'+csv_name+'.csv')
+    file_path = os.path.join(path_prefic, 'marketIndex', csv_name,'.csv')
+    df = pd.read_csv(file_path)
     symbols = df['symbol']
 
     # loop over symbols 
@@ -153,7 +162,7 @@ def downloadStatements(csv_name, period):
 
 def downloadHistoricPrices(csv_name):
     # load csv to get tickers
-    df = pd.read_csv('marketIndex/'+csv_name+'.csv')
+    df = pd.read_csv(file_path)
     symbols = df['symbol']
 
     # loop over symbols 
@@ -165,16 +174,17 @@ def downloadHistoricPrices(csv_name):
 # Database Updates
 ################################################################################################################################
 def updateStatementsfromList(path_, period):
-    tickers = getTickerList('charts/'+str(path_))
+    tickers = getTickerList(os.join(path_prefix,'charts/'+str(path_)))
     for t in tickers:
         updateStatements(t, period)
 
 def updateStatements(ticker, period):
     # delete existing statments
-    if os.path.exists('SECfilings/ttm/'+ticker.upper()+'_ttm.txt'):
-        os.remove('SECfilings/ttm/'+ticker.upper()+'_ttm.txt')
+    ttm_path = os.path.join(path_prefix, 'SECfilings','ttm'+ticker.upper()+'_ttm.txt')
+    if os.path.exists(ttm_path):
+        os.remove(ttm_path)
     if period == 'Y':
-        path = 'SECfilings/year/'+ticker.upper()
+        path = os.path.join(path_prefix,'SECfilings','year',ticker.upper())
         if os.path.exists(path+'_bsa.txt'):
             os.remove(path+'_bsa.txt')
         if os.path.exists(path+'_isa.txt'):
@@ -184,7 +194,7 @@ def updateStatements(ticker, period):
         if os.path.exists(path+'_eva.txt'):
             os.remove(path+'_eva.txt')
     else:
-        path = 'SECfilings/quarter/'+ticker.upper()
+        path = os.path.join(path_prefix,'SECfilings','quarter',ticker.upper())
         if os.path.exists(path+'_bsq.txt'):
             os.remove(path+'_bsq.txt')
         if os.path.exists(path+'_isq.txt'):

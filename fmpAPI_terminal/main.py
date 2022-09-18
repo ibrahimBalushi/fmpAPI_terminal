@@ -1,4 +1,8 @@
-from processor import *
+from .processor import *
+
+import fmpAPI_terminal
+path_prefix = fmpAPI_terminal.__path__[0]
+
 
 # TERMINAL API functions -------------------------------------------------------------------------------------------------------------------
 def getTrendTable(ticker, trend_name, years, period, pretty=True):
@@ -24,7 +28,7 @@ def getTrendTable(ticker, trend_name, years, period, pretty=True):
     return trends
 
 def maketrend(path_, metric, years ,period):
-    ticker_list = getTickerList('charts/'+str(path_))
+    ticker_list = getTickerList(os.path.join(path_prefix,'charts', str(path_)))
     for tkr in ticker_list:
     # produce tables and plots
         print('processing',tkr)
@@ -58,7 +62,7 @@ def makecompare(ticker_list, field, years, period, list_type):
     comparePlots(tkrs, field, int(years), period)
 
 def openCompaniesmarketcap(sector):
-    file = open('help/sectors.txt','r')
+    file = open(os.path.join(path_prefix,'help','sectors.txt'),'r')
     content = file.readlines()
     if sector == 'list':
         for l in content:
@@ -129,9 +133,10 @@ def prompt(var, run_):
         web_dict = {'insider':call_insider, 'sector':call_sector,'holdings':call_holdings,'analyst':call_analyst, 'sec':call_sec}
 
         # help lists
-        call_commands_list = 'os.system("cat help/commands.txt")'
-        call_compare_list = 'os.system("cat help/compare.txt")'
-        call_sector_list = 'os.system("cat help/sectors.txt")'
+        call_commands_list = f'cat("{os.path.join(path_prefix,"help", "commands.txt")}")'
+        call_compare_list = f'cat("{os.path.join(path_prefix,"help", "compare.txt")}")'
+        call_sector_list = f'cat("{os.path.join(path_prefix,"help", "sectors.txt")}")'
+        
         list_dict = {'commands':call_commands_list, 'compare':call_compare_list, 'sectors':call_sector_list}
 
         # # execute command line:
@@ -139,6 +144,11 @@ def prompt(var, run_):
         eval(eval(cmdln[var[0]]))
 
         return run_
+        
+def cat(path):
+	'''platfrom agnostic cat, meow'''
+	with open(path) as file:
+		print(file.read())
 
 if __name__ == '__main__':
     # TERMINAL INITIATION
@@ -149,4 +159,4 @@ if __name__ == '__main__':
             var = input('fmpAPI terminal$ ').split()
             run_ = prompt(var, run_)
                 
-        except Exception as e: print(e)
+        except Exception as e: raise(e)
