@@ -6,7 +6,7 @@ This program produce charts and tables.
 It is a command-line prompter in terminal to retrieve and visualize various financial data from www.financialmodelingprep.com
 Designed to produce tables and charts summarizing financial metrics of companies trades on various stock exhcnages. 
 
-#Pre-requirsites
+# Pre-requirsites
 An apikey from FinancialModelingPrep needs is needed, and should be stored in the environment variable `FMP_API_KEY`.
 `
 To permanently store your api key in your .bashrc file run:
