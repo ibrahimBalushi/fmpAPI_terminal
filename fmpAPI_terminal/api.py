@@ -12,6 +12,7 @@ import fmpAPI_terminal
 path_prefix = fmpAPI_terminal.__path__[0]
 
 apikey = os.getenv('FMP_API_KEY')
+
 if apikey is None:
 	print('No FMP_API_KEY environment variable detected. Cannot proceed.')
 	exit()
